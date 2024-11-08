@@ -10,7 +10,7 @@ import org.jsoup.select.*;
 
 public class Scraper {
 
-    public List<Cat> run() {
+    public String run() {
         Document doc;
 
         String baseURL = "https://www.sphynx-cattery.com/";
@@ -52,16 +52,17 @@ public class Scraper {
         
         cats.toString();
 
-        List<Cat> availableCats = new ArrayList<>();
+        String result = "";
 
         for (Cat cat : cats) {
-            //System.out.println(cat.toDisplayString());
+            System.out.println(cat.toDisplayString());
             if (!(cat.getPrice().toUpperCase().contains("SOLD") || cat.getPrice().toUpperCase().contains("NOT FOR")
             || cat.getType().toUpperCase().contains("SPHYNX-CATTERY.COM"))) {
-                availableCats.add(cat);
+                result += cat.toDisplayString() + "<br>";
             }
+            // result += cat.toDisplayString() + "<br>";
         }
-
-        return availableCats;
+        
+        return result;
     }
 }

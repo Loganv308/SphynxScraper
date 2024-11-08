@@ -40,7 +40,7 @@ public class Cat {
     }
 
     public String toDisplayString() {
-        String display = "Cat type: " + type +".\n" + dob +".\n" + price +".\n" + "URL: " + url +".\n";
+        String display = "<b>Cat type</b>: " + type +".<br>" + dob +".<br>" + price +".<br>" + "URL: " + url +".<br>";
         return display; 
     }
 }

@@ -9,32 +9,37 @@ public class Main {
         
         EmailAccount emailAccount = new EmailAccount("", "");
 
-        List<Cat> cats = scraper.run();
-
-        EmailSender emailSender = new EmailSender(emailAccount, "Kittys Available", "loganv308@gmail.com", cats);
+        EmailSender emailSender = new EmailSender(emailAccount, "Available Hairless Kitties", "");
 
         EmailLoginResult emailLoginResult = emailSender.login();
 
-        switch (emailLoginResult) {
-            case SUCCESS:
-                if (cats.isEmpty()) {
-                    System.out.println("No available cats.");
-                    
-                } else {
-                    for (Cat cat : cats) {
-                        System.out.println(cat.toDisplayString());
+        while (true) {
+            String cats = scraper.run();
+            emailSender.setContent(cats);
+            switch (emailLoginResult) {
+                case SUCCESS:
+                    if (cats.isBlank()) {
+                        System.out.println("No available cats.");
+                    } else {
+                        System.out.println(cats);
                     }
-                }
-                emailSender.sendEmail();
-                break;
-            case FAILED_BY_CREDENTIALS:
-                System.out.println("Failed by credentials");
-                break;
-            case FAILED_BY_UNEXPECTED_ERROR:
-                System.out.println("Failed by unexpected Error");
-                break;
-            default:
-                return;
-        } 
+                    emailSender.sendEmail();
+                    break;
+                case FAILED_BY_CREDENTIALS:
+                    System.out.println("Failed by credentials");
+                    break;
+                case FAILED_BY_UNEXPECTED_ERROR:
+                    System.out.println("Failed by unexpected Error");
+                    break;
+                default:
+                    return;
+            } 
+            try {
+                Thread.sleep(1000*60*60*2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

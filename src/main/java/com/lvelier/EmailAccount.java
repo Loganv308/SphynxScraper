@@ -16,11 +16,15 @@ public class EmailAccount {
         this.password = password;
 
         properties = new Properties();
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.socketFactory.port", "465");
-        properties.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+        properties.put("mail.transport.protocol", "smtp");
         properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com"); // Replace with actual SMTP server if different
+        properties.put("mail.smtp.port", "587"); // Port may vary depending on the SMTP server
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.ssl.protocols", "TLSv1.2"); // Explicitly set the TLS version
+        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
     }
     
     @Override
