@@ -42,11 +42,13 @@ Scraper.java
 
 ```
 ``` java
-    Main.java 
+Main.java 
 
-    EmailAccount emailAccount = new EmailAccount(<EmailAddress>, <Password key>);
+// Below you'll put your email address along with generated key from Google or other email services. 
+EmailAccount emailAccount = new EmailAccount(<Email Address>, <Password Key>);
 
-    EmailSender emailSender = new EmailSender(emailAccount, <subject>, <recipient>);
+// The code below will be to pass emailAccount to the sender service, along with the subject and recipient of your choosing. 
+EmailSender emailSender = new EmailSender(emailAccount, <subject>, <recipient>);
 
 ```
 
