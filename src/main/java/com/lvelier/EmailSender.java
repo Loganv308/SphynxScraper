@@ -1,12 +1,9 @@
 package com.lvelier;
 
-import java.util.List;
-
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
-import javax.mail.NoSuchProviderException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -44,7 +41,7 @@ public class EmailSender {
             //Thread.sleep(6000);
             Session session = Session.getInstance(emailAccount.getProperties(), authenticator);
             emailAccount.setSession(session);
-            System.out.println("" + emailAccount.getSession());
+            //System.out.println("" + emailAccount.getSession());
         } catch (Exception e) {
             e.printStackTrace();
             return EmailLoginResult.FAILED_BY_UNEXPECTED_ERROR;
@@ -72,7 +69,7 @@ public class EmailSender {
                 //System.out.println("emailAccount.getSession().getTransport(): " + emailAccount.getSession().getTransport());
                 //System.out.println("Transport: " + emailAccount);
                 Transport transport = emailAccount.getSession().getTransport();
-                System.out.println(emailAccount.getAddress() + " " + emailAccount.getPassword());
+                //System.out.println(emailAccount.getAddress() + " " + emailAccount.getPassword());
                 transport.connect(
                     emailAccount.getProperties().getProperty("mail.smtp.host"),
                     emailAccount.getAddress(),
