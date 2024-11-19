@@ -42,13 +42,28 @@ Scraper.java
 
 ```
 ``` java
-Main.java 
 
-// Below you'll put your email address along with generated key from Google or other email services. 
-EmailAccount emailAccount = new EmailAccount(<Email Address>, <Password Key>);
+CredentialManager.java
 
-// The code below will be to pass emailAccount to the sender service, along with the subject and recipient of your choosing. 
-EmailSender emailSender = new EmailSender(emailAccount, <subject>, <recipient>);
+// Create a file if not already there called "credentials.properties", this will act as your config file for the program.
+try (FileInputStream input = new FileInputStream("src\\main\\java\\com\\<username>\\credentials.properties"))
+
+// It should contain the following:
+
+email=<email>
+password=<password key>
+subject=<Email Subject> 
+recipient=<Email Recipient(s)>
+
+------------------------------------------------------------------------------------------------------------------------
+
+Main.java
+
+// This is the main driver code for authentication in this program. 
+EmailAccount emailAccount = new EmailAccount(creds.getUsername(), creds.getPassword());
+
+// The line of code below will send an email based on the emailAccount, subject, and recipient. 
+EmailSender emailSender = new EmailSender(emailAccount, creds.getSubject(), creds.getRecipient());
 
 ```
 
