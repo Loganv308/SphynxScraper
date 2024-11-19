@@ -1,15 +1,15 @@
 package com.lvelier;
 
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         
         Scraper scraper = new Scraper();
-        
-        EmailAccount emailAccount = new EmailAccount("", "");
 
-        EmailSender emailSender = new EmailSender(emailAccount, "Available Hairless Kitties", "");
+        CredentialManager creds = new CredentialManager();
+        
+        EmailAccount emailAccount = new EmailAccount(creds.getUsername(), creds.getPassword());
+
+        EmailSender emailSender = new EmailSender(emailAccount, creds.getSubject(), creds.getRecipient());
 
         EmailLoginResult emailLoginResult = emailSender.login();
 
@@ -35,11 +35,11 @@ public class Main {
                     return;
             } 
             try {
-                Thread.sleep(1000*60*60*2);
+                // Thread.sleep(1000*60*60*2);
+                Thread.sleep(6000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
-
+        } 
     }
 }

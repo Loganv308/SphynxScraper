@@ -54,13 +54,14 @@ public class Scraper {
 
         String result = "";
 
+        // Loop to filter if there are new cats or not. 
         for (Cat cat : cats) {
             System.out.println(cat.toDisplayString());
             if (!(cat.getPrice().toUpperCase().contains("SOLD") || cat.getPrice().toUpperCase().contains("NOT FOR")
             || cat.getType().toUpperCase().contains("SPHYNX-CATTERY.COM"))) {
                 result += cat.toDisplayString() + "<br>";
             }
-            // result += cat.toDisplayString() + "<br>";
+            //result += cat.toDisplayString() + "<br>";
         }
         
         return result;
