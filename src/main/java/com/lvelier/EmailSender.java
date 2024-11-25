@@ -20,6 +20,10 @@ public class EmailSender {
     private String content;
 
     public EmailSender(EmailAccount emailAccount, String subject, String recipient) {
+        if (emailAccount == null || subject == null || recipient == null || recipient.isEmpty()) {
+            System.out.println(emailAccount + " " + subject + " " + recipient + " " + recipient);
+            throw new IllegalArgumentException("Invalid email sender configuration.");
+        }
         this.emailAccount = emailAccount;
         this.subject = subject;
         this.recipient = recipient;
@@ -40,6 +44,7 @@ public class EmailSender {
         try {
             //Thread.sleep(6000);
             Session session = Session.getInstance(emailAccount.getProperties(), authenticator);
+            //session.setDebug(true); // Enable debug mode
             emailAccount.setSession(session);
             //System.out.println("" + emailAccount.getSession());
         } catch (Exception e) {
@@ -66,18 +71,25 @@ public class EmailSender {
                 multipart.addBodyPart(messageBodyPart);
                 mimeMessage.setContent(multipart);
 
-                //System.out.println("emailAccount.getSession().getTransport(): " + emailAccount.getSession().getTransport());
-                //System.out.println("Transport: " + emailAccount);
-                Transport transport = emailAccount.getSession().getTransport();
-                //System.out.println(emailAccount.getAddress() + " " + emailAccount.getPassword());
-                transport.connect(
-                    emailAccount.getProperties().getProperty("mail.smtp.host"),
-                    emailAccount.getAddress(),
-                    emailAccount.getPassword()
-                );
-                transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
-                transport.close();
-                return EmailSendingResult.SUCCESS;
+                System.out.println("Attempting to connect using:");
+                System.out.println("SMTP Host: " + emailAccount.getProperties().getProperty("mail.smtp.host"));
+                System.out.println("Email: " + emailAccount.getAddress());
+                System.out.println("Password length: " + emailAccount.getPassword().length());
+
+                try {
+                    Transport transport = emailAccount.getSession().getTransport();
+                    transport.connect(
+                        emailAccount.getProperties().getProperty("mail.smtp.host"),
+                        emailAccount.getAddress(),
+                        emailAccount.getPassword()
+                    );
+                    transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
+                    transport.close();
+                    return EmailSendingResult.SUCCESS;
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                    return EmailSendingResult.FAILED_BY_PROVIDER;
+                }
             
             } catch(MessagingException e) {
                 e.printStackTrace();
