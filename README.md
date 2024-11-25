@@ -46,7 +46,7 @@ Scraper.java
 CredentialManager.java
 
 // Variable at the top of this file will contain your designated path to the credentials file on your PC.
-private String PATH = "src\\main\\java\\com\\lvelier\\credentials.properties";
+private String PATH = "src\\main\\java\\com\\<username>\\credentials.properties";
 
 // Create a file if not already there called "credentials.properties", this will act as your config file for the program.
 try (FileInputStream input = new FileInputStream(PATH))
