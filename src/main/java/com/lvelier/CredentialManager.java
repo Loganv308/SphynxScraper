@@ -13,8 +13,9 @@ public class CredentialManager {
     private String subject;
     private String recipient;
 
-    private String PATH = "src\\main\\java\\com\\lvelier\\credentials.properties";
-
+    private String PATH = "";
+    private String osType = System.getProperty("os.name");
+    
     // Constructor
     public CredentialManager(String username, String password, String subject, String recipient) {
         this.username = username;
@@ -29,6 +30,13 @@ public class CredentialManager {
     }
 
     public String createConfigFile() {
+
+        if(osType.contains("Windows")) {
+            PATH = System.getProperty("user.home") + "\\credentials.properties";
+        } else {
+            PATH = System.getProperty("user.home") + "/credentials.properties";
+        }
+
         try {            
             File file = new File(PATH);
             
@@ -37,7 +45,7 @@ public class CredentialManager {
             if (file.createNewFile()) {
                 System.out.println("File created: " + file.getName());
 
-                fileWriter = new FileWriter("src\\main\\java\\com\\lvelier\\credentials.properties");
+                fileWriter = new FileWriter(PATH);
                 
                 fileWriter.write("email=" + "\n");
                 fileWriter.write("password=" + "\n");
@@ -45,6 +53,8 @@ public class CredentialManager {
                 fileWriter.write("recipient=" + "\n");
 
                 fileWriter.close();
+
+                System.out.println("Put your email & credentials in this file: " + PATH);
 
                 System.exit(0);
             } else {
