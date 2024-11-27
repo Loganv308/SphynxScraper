@@ -45,18 +45,17 @@ Scraper.java
 
 CredentialManager.java
 
-// Variable at the top of this file will contain your designated path to the credentials file on your PC.
-private String PATH = "src\\main\\java\\com\\<username>\\credentials.properties";
-
-// Create a file if not already there called "credentials.properties", this will act as your config file for the program.
-try (FileInputStream input = new FileInputStream(PATH))
-
-// It should contain the following:
+// The Credentials.properties file will be created at your user.home.
+// For Windows, this would be "C:/users/<username>
+// For Linux, this would be "/home/<username>"
+// The Credentials.properties file will contain the following:
 
 email=<email>
 password=<password key>
 subject=<Email Subject> 
 recipient=<Email Recipient(s)>
+
+// Fill this out. Then re-run the program and it'll start to run.
 
 ------------------------------------------------------------------------------------------------------------------------
 
